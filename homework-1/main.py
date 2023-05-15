@@ -36,8 +36,7 @@ def emploees_list(emploees, conn, cur):
         cur.execute("INSERT INTO employees VALUES (%s, %s, %s, %s, %s)", (first_name, last_name, title, birth_date, notes))
         conn.commit()
     cur.execute("SELECT * FROM employees")
-    rows = cur.fetchall()
-    
+    rows = cur.fetchall()  
 
 def orders_list(orders, conn, cur):
     for order in orders[1:len(orders)]:
@@ -46,14 +45,14 @@ def orders_list(orders, conn, cur):
         employee_id = order[2]
         order_date = order[3]
         ship_city = order[4]
-        cur.execute("INSERT INTO orders VALUES (%s, %s, %s, %s, %s)", (order_id, employee_id, customer_id, order_date, ship_city))
+        cur.execute("INSERT INTO orders VALUES (%s, %s, %s, %s, %s)", (order_id, customer_id, employee_id, order_date, ship_city))
         conn.commit()
     cur.execute("SELECT * FROM orders")
+    rows = cur.fetchall()
 
-
-customers = r_file("customers_data")
-customers_list(customers, conn, cur)
 emploees = r_file("employees_data")
 emploees_list(emploees, conn, cur)
+customers = r_file("customers_data")
+customers_list(customers, conn, cur)
 orders = r_file("orders_data")
 orders_list(orders, conn, cur)
